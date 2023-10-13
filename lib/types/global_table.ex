@@ -3,12 +3,14 @@ defmodule GlobalTable do
   # модуль для динамического создания модулей-таблиц
 
   def create(table_name) do
-    ["Elixir", module] = table_name
+    ["Elixir"| module] = table_name
     |> to_string()
     |> String.split(".")
 
+    module_name = module |> Enum.join(".")
+
     module_text = '''
-      defmodule #{module} do
+      defmodule #{module_name} do
         alias Tables.Types.TableGS
         alias Table
         use TableGS, name: __MODULE__

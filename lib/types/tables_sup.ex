@@ -1,7 +1,6 @@
 defmodule Tables.Types.TablesSup do
   # модуль супервизор
   use Supervisor
-
   require Logger
 
   def start_link do

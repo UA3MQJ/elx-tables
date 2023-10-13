@@ -7,7 +7,7 @@ defmodule Tables.Types.TableGS do
     quote location: :keep do
 
       @name unquote(opts)[:name]
-  
+
       require Logger
 
       # GS funcs
@@ -16,9 +16,11 @@ defmodule Tables.Types.TableGS do
       end
 
       def init(id) do
-        ["Elixir", table_name] = id
+        ["Elixir"| module] = id
         |> to_string()
         |> String.split(".")
+
+        table_name = module |> Enum.join(".")
 
         state = %{
           table: initial_data(),
@@ -52,10 +54,10 @@ defmodule Tables.Types.TableGS do
 
       def where(params),
         do: GenServer.call(__MODULE__, {:where, params})
- 
+
       def drop(),
         do: GlobalTable.drop(__MODULE__)
- 
+
       # handle casts, calls
       def handle_call({:count}, _from, state),
         do: {:reply, Table.count(state.table), state}
