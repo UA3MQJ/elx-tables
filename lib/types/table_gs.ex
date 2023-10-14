@@ -32,9 +32,12 @@ defmodule Tables.Types.TableGS do
       end
 
       # API
-      def insert(%{:id => id} = record),
+      def insert(record),
         do: GenServer.cast(__MODULE__, {:insert, record})
-      def insert(_record), do: throw(:error_data)
+
+      # def insert(%{:id => id} = record),
+      #   do: GenServer.cast(__MODULE__, {:insert, record})
+      # def insert(_record), do: throw(:error_data)
 
       def update(%{:id => id} = record),
         do: GenServer.cast(__MODULE__, {:update, record})
